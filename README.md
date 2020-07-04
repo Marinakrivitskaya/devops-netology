@@ -6,6 +6,7 @@ Andrey Krylov
     logs/
     + standard set of rules
     #/**.*.log #Ignore logs-files in root dir. and in subdirs.
+    .idea/  #Pycharm files
 
 ##Git ignored files in Directory terraform:
 
@@ -19,4 +20,4 @@ Andrey Krylov
     *_override.tf.json
     .terraformrc
     terraform.rc
-
+    
