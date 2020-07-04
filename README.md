@@ -1,5 +1,6 @@
 # devops-netology
 Andrey Krylov
+new 2020/07/04
 
 ##Git ignored files in Root Directory
 
