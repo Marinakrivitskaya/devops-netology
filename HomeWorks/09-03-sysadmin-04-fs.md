@@ -80,8 +80,8 @@ _VG Name               vg_01_
 
 >10. Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
 
-**lvcreate -L100 -n md0_1 vg_01 /dev/md1 
-lvdisplay**
+**lvcreate -L100 -n md0_1 vg_01 /dev/md1  
+lvdisplay**  
 _LV Path                /dev/vg_01/md0_1 …_
 
 
