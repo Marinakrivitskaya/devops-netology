@@ -1,0 +1,123 @@
+global_defs {
+  ! имя балансера
+  router_id LVS_2
+}
+
+
+
+vrrp_script chk_nginx {
+script "/usr/bin/systemctl status nginx"
+interval 2
+}
+
+! блок vrrp_instance отвечающий за настройку виртуального роутера,.
+! для каждого сетевого интерфейса необходимо настроить, по крайне мере один блок vrrp_instance..
+! Вы можете добавить необходимое количество блоков для каждой группы виртуальных IP
+
+vrrp_instance VI_1 {
+!Указывает на то что в каком состоянии стартует нода
+state BACKUP
+
+!Интерфейс для виртуальных IP
+interface eth1
+
+!Интерфейс для обмена служебными пакетами между нодами
+!lvs_sync_daemon_inteface eth0
+
+!Уникальное имя виртуального роутера
+virtual_router_id 1
+
+!Приоритет данной ноды относительно других, нода с наибольшим приоритетом переходит в состояние MASTER
+priority 50
+
+!Как часто происходит обновление состояния кластера
+advert_int 1
+
+ !Аутентификация используется для синхронизации между нодами
+ authentication {
+    auth_type PASS
+    auth_pass netology_secret
+ }
+
+ !Виртуальные адреса, которые настроит keealived.
+ virtual_ipaddress {
+ 172.28.128.200/24 dev eth1
+ }
+
+ track_script {
+ chk_nginx
+ }
+}
+
+vrrp_instance netology1 {
+!Указывает на то что в каком состоянии стартует нода
+
+state BACKUP
+
+!Интерфейс для виртуальных IP
+interface eth1
+
+!Интерфейс для обмена служебными пакетами между нодами
+!lvs_sync_daemon_inteface eth1
+
+!Уникальное имя виртуального роутера
+virtual_router_id 11
+
+!Приоритет данной ноды относительно других, нода с наибольшим приоритетом переходит в состояние MASTER
+priority 50
+
+!Как часто происходит обновление состояния кластера
+advert_int 1
+
+ !Аутентификация используется для синхронизации между нодами
+ authentication {
+    auth_type PASS
+    auth_pass netology_secret
+ }
+
+ !Виртуальные адреса, которые настроит keealived.
+ virtual_ipaddress {
+ 172.28.128.10/24 dev eth1 label eth1:2
+ }
+ track_script {
+ chk_nginx
+ }
+}
+
+
+
+
+vrrp_instance netology2 {
+!Указывает на то что в каком состоянии стартует нода
+
+state MASTER
+
+!Интерфейс для виртуальных IP
+interface eth1
+
+!Интерфейс для обмена служебными пакетами между нодами
+!lvs_sync_daemon_inteface eth1
+
+!Уникальное имя виртуального роутера
+virtual_router_id 12
+
+!Приоритет данной ноды относительно других, нода с наибольшим приоритетом переходит в состояние MASTER
+priority 100
+
+!Как часто происходит обновление состояния кластера
+advert_int 1
+
+ !Аутентификация используется для синхронизации между нодами
+ authentication {
+    auth_type PASS
+    auth_pass netology_secret
+ }
+
+ !Виртуальные адреса, которые настроит keealived.
+ virtual_ipaddress {
+ 172.28.128.60/24 dev eth1 label eth1:2
+ }
+ track_script {
+ chk_nginx
+ }
+}
