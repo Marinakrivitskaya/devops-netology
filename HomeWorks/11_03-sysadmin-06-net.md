@@ -176,10 +176,11 @@ _-A -t 172.28.128.200:http -s rr
  
 **netlogy1
 /etc/keepalived/keepalived.conf**
+https://github.com/syatihoko/devops-netology/blob/master/HomeWorks/11_03-keepalived-1.txt
 
 **netlogy2
 /etc/keepalived/keepalived.conf**
-
+https://github.com/syatihoko/devops-netology/blob/master/HomeWorks/11_03-keepalived-2.txt
 
 **1)	Штатная работа  
 netology1# ip -4 a | grep 172**  
