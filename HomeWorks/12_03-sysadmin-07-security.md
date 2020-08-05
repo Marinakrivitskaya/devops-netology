@@ -65,8 +65,8 @@ common_name="avia-example.com Intermediate Authority" \
        ** max_ttl="4380h"**     
 
 **# vault list pki_int/roles/**  
-_Keys  
-----  
+
+_ Keys   
 avia-example-com_  
 
 Выпускаем сертификат, подписываем промежуточным:   
