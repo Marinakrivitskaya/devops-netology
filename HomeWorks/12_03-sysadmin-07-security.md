@@ -77,7 +77,7 @@ avia-example-com_
 >5. Поднимите на localhost nginx, сконфигурируйте default vhost для использования подписанного Vault Intermediate CA сертификата и выбранного вами домена. Сертификат из Vault подложить в nginx руками.
 
 
-Руками из файла nginx.cert достал часть сертификата  и положил в web.avia-example.com.crt и часть приватного ключа и положил в web.avia-example.com.key
+Руками из файла nginx.cert достал часть сертификата с сертификатом issuing_ca и положил в web.avia-example.com.crt, а часть приватного ключа положил в web.avia-example.com.key
 (хотя можно было разобрать _| tee_   
  _>(jq -r .data.certificate > ca.pem) \_  
  _>(jq -r .data.private_key > ca-key.pem)_  
@@ -102,9 +102,8 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 
 
 
-Подложил корневой  и промежуточный сертификат в хранилище доверенных. И обновил список.
+Подложил корневой  сертификат в хранилище доверенных корневых сертификатов. И обновил список.
 **# ln -s /root/HCvault/CA_cert.crt /usr/local/share/ca-certificates/CA_cert.crt**
-#ln -s /root/HCvault/intermediate.cert.pem  /usr/local/share/ca-certificates/ intermediate.cert.crt
 #update-ca-certificates --fresh
 
 **# curl https://web.avia-example.com**
