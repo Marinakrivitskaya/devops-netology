@@ -126,7 +126,7 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 Это проигнорировал, 
 _setopt – используется в  zsh,_
 
-Не стал использовать установку токена вы root:
+Не использоваk установку токена вы root:
 VAULT_UI=true vault server -dev -dev-root-token-id="root"
 Не стал разбираться использовал Токен сгенерированный сервером. 
 
@@ -147,7 +147,7 @@ KillSignal=SIGINT
 [Install]
 WantedBy=multi-user.target__
 
-Также пока не добавил корневой и промежуточный сертификат получил ошибки. 
+Также пока не добавил корневой сертификат в хранилище доверенных получал ошибки. 
 Не успел вызвать уже истек =), несколько секунд между вызовами. 
 root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
 <!DOCTYPE html>
