@@ -104,8 +104,8 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 
 Подложил корневой  и промежуточный сертификат в хранилище доверенных. И обновил список.
 **# ln -s /root/HCvault/CA_cert.crt /usr/local/share/ca-certificates/CA_cert.crt**
-#ln -s /root/HCvault/intermediate.cert.pem  /usr/local/share/ca-certificates/ intermediate.cert.crt
-#update-ca-certificates --fresh
+**#ln -s /root/HCvault/intermediate.cert.pem  /usr/local/share/ca-certificates/ intermediate.cert.crt**
+**#update-ca-certificates --fresh**
 
 **# curl https://web.avia-example.com**
 <!DOCTYPE html>
@@ -116,8 +116,8 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
     body { …
 
 
->7. [Ознакомьтесь](https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
-Изучил
+>7. Ознакомьтесь(https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
+Ознакомился
 
 >8.Дополнительное задание вне зачета. Вместо ручного подкладывания сертификата в nginx, воспользуйтесь [Consul](https://medium.com/hashicorp-engineering/pki-as-a-service-with-hashicorp-vault-a8d075ece9a) для автоматического подтягивания сертификата из Vault.  
 
@@ -125,6 +125,10 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 
 Это проигнорировал, 
 _setopt – используется в  zsh,_
+
+Не задолось с установкой Токена в root:
+VAULT_UI=true vault server -dev -dev-root-token-id="root"
+Сделал со сгенерированным сервером.
 
 Также изменил:
 **/etc/systemd/system/ consul-template.service**
