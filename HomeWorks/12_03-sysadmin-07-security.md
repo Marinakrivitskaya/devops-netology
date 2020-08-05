@@ -15,7 +15,7 @@
 **#export VAULT_TOKEN='s.5LGogjJTcokwJWwRIjw4orrd '**  
 
 
-3. Используя [PKI Secrets Engine](https://www.vaultproject.io/docs/secrets/pki), создайте Root CA и Intermediate CA.  
+>3. Используя [PKI Secrets Engine](https://www.vaultproject.io/docs/secrets/pki), создайте Root CA и Intermediate CA.  
 Обратите внимание на [дополнительные материалы](https://learn.hashicorp.com/vault/secrets-management/sm-pki-engine) по созданию CA в Vault, если с изначальной инструкцией возникнут сложности.
 
 
@@ -32,7 +32,9 @@
 
 	
 	Конфигурируем корневой ЦС (CA) и список отзыва (CRL):  
-** #vault write pki/config/urls \ ** 
+	
+**#vault write pki/config/urls \ **  
+
 issuing_certificates="http://127.0.0.1:8200/v1/pki/ca" \   
 crl_distribution_points="http://127.0.0.1:8200/v1/pki/crl"  
 
@@ -52,7 +54,7 @@ common_name="avia-example.com Intermediate Authority" \
 Импортируем его в хранилище
 **#vault write pki_int/intermediate/set-signed certificate=@intermediate.cert.pem**
 
-4. Согласно этой же инструкции, подпишите Intermediate CA csr на сертификат для любого тестового домена (`example.ru`).  
+>4. Согласно этой же инструкции, подпишите Intermediate CA csr на сертификат для любого тестового домена (`example.ru`).  
 
 
 Создаем роль\ политику для выпуска сертификатов, говорим, что подписываться будут промежуточным сервером сертификации - pki_int     
@@ -73,7 +75,7 @@ avia-example-com_
 	serial_number       17:81:a3:fb:33:16:c9:b0:3e:1e:de:62:12:08:93:b6:74:6c:1c:63_  
 
 
-5. Поднимите на localhost nginx, сконфигурируйте default vhost для использования подписанного Vault Intermediate CA сертификата и выбранного вами домена. Сертификат из Vault подложить в nginx руками.
+>5. Поднимите на localhost nginx, сконфигурируйте default vhost для использования подписанного Vault Intermediate CA сертификата и выбранного вами домена. Сертификат из Vault подложить в nginx руками.
 
 
 Руками из файла nginx.cert достал часть сертификата  и положил в web.avia-example.com.crt и часть приватного ключа и положил в web.avia-example.com.key
@@ -89,7 +91,7 @@ avia-example-com_
          ssl_certificate /root/certs/web.avia-example.com.crt;
          ssl_certificate_key /root/certs/web.avia-example.com.key;
 
-6. Модифицировав `/etc/hosts` и [системный trust-store](http://manpages.ubuntu.com/manpages/focal/en/man8/update-ca-certificates.8.html), добейтесь безошибочной с точки зрения HTTPS работы curl на ваш тестовый домен (отдающийся с localhost).
+>6. Модифицировав `/etc/hosts` и [системный trust-store](http://manpages.ubuntu.com/manpages/focal/en/man8/update-ca-certificates.8.html), добейтесь безошибочной с точки зрения HTTPS работы curl на ваш тестовый домен (отдающийся с localhost).
 
 etc/hosts
 127.0.1.1<----->web.avia-example.com
@@ -115,10 +117,10 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
     body { …
 
 
-7. [Ознакомьтесь](https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
+>7. [Ознакомьтесь](https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
 +
 
-8.**Дополнительное задание вне зачета.** Вместо ручного подкладывания сертификата в nginx, воспользуйтесь [Consul](https://medium.com/hashicorp-engineering/pki-as-a-service-with-hashicorp-vault-a8d075ece9a) для автоматического подтягивания сертификата из Vault.  
+>8.**Дополнительное задание вне зачета.** Вместо ручного подкладывания сертификата в nginx, воспользуйтесь [Consul](https://medium.com/hashicorp-engineering/pki-as-a-service-with-hashicorp-vault-a8d075ece9a) для автоматического подтягивания сертификата из Vault.  
 
 Получилось в точности по инструкции с учетом небольших корректировок по версии ОС. 
 
