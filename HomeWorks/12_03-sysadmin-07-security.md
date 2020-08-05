@@ -84,11 +84,11 @@ avia-example-com_
  Уже потом увидел пример  
 )
 
-/etc/nginx/sites-enabled/
-         listen 443 ssl default_server;
-                listen [::]:443 ssl default_server;
-         ssl_certificate /root/certs/web.avia-example.com.crt;
-         ssl_certificate_key /root/certs/web.avia-example.com.key;
+**/etc/nginx/sites-enabled/**   
+         listen 443 ssl default_server;  
+                listen [::]:443 ssl default_server;  
+         ssl_certificate /root/certs/web.avia-example.com.crt;  
+         ssl_certificate_key /root/certs/web.avia-example.com.key;  
 
 >6. Модифицировав `/etc/hosts` и [системный trust-store](http://manpages.ubuntu.com/manpages/focal/en/man8/update-ca-certificates.8.html), добейтесь безошибочной с точки зрения HTTPS работы curl на ваш тестовый домен (отдающийся с localhost).
 
