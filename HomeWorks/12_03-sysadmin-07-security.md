@@ -126,6 +126,10 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 Это проигнорировал, 
 _setopt – используется в  zsh,_
 
+Не стал использовать установку токена вы root:
+VAULT_UI=true vault server -dev -dev-root-token-id="root"
+Не стал разбираться использовал Токен сгенерированный сервером. 
+
 Также изменил:
 **/etc/systemd/system/ consul-template.service**
 
