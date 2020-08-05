@@ -31,8 +31,7 @@
 **# openssl x509 -in CA_intermediate.cert.pem -text**   
 
 	
-	Конфигурируем корневой ЦС (CA) и список отзыва (CRL):  
-	
+Конфигурируем корневой ЦС (CA) и список отзыва (CRL):  
 **#vault write pki/config/urls \ **  
 
 issuing_certificates="http://127.0.0.1:8200/v1/pki/ca" \   
@@ -118,9 +117,9 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 
 
 >7. [Ознакомьтесь](https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
-+
+Изучил
 
->8.**Дополнительное задание вне зачета.** Вместо ручного подкладывания сертификата в nginx, воспользуйтесь [Consul](https://medium.com/hashicorp-engineering/pki-as-a-service-with-hashicorp-vault-a8d075ece9a) для автоматического подтягивания сертификата из Vault.  
+>8.Дополнительное задание вне зачета. Вместо ручного подкладывания сертификата в nginx, воспользуйтесь [Consul](https://medium.com/hashicorp-engineering/pki-as-a-service-with-hashicorp-vault-a8d075ece9a) для автоматического подтягивания сертификата из Vault.  
 
 Получилось в точности по инструкции с учетом небольших корректировок по версии ОС. 
 
