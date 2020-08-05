@@ -157,3 +157,4 @@ root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
 root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
 curl: (60) SSL certificate problem: certificate has expired
 More details here: https://curl.haxx.se/docs/sslcerts.html
+
