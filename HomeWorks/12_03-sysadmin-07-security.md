@@ -146,13 +146,16 @@ KillSignal=SIGINT
 [Install]
 WantedBy=multi-user.target__
 
-Также пока не добавил корневой сертификат в хранилище доверенных получал ошибки. 
-Не успел вызвать уже истек =), несколько секунд между вызовами. 
-root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
+
+**# curl https://web.avia-example.com**
 <!DOCTYPE html>
 <html>
 <head>
 ….
-root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
+	
+Если остановить consul-template:
+**systemctl stop  consul-template**
+То быстро можно добиться, увидеть, что сертификат истек: 
+**# curl https://web.avia-example.com**
 curl: (60) SSL certificate problem: certificate has expired
 More details here: https://curl.haxx.se/docs/sslcerts.html
