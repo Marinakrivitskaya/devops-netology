@@ -112,7 +112,8 @@ done
 message_file=$1  
 #echo message_file = $message_file  
 
-result=$(grep -c -E '^(\[)[A-Za-z0-9.,!?:…-]{1,30}(\])$' $message_file)   
+##result=$(grep -c -E '^(\[)[A-Za-z0-9.,!?:…-]{1,30}(\])$' $message_file)   
+result=$(grep -c -E '^(\[04-script-01-bash])[A-Za-z0-9.,!?:…-]{0,30}' $message_file)   
 #echo result = $result   
 
 if ((result == 1))   
