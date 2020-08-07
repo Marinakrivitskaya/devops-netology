@@ -77,18 +77,18 @@ avia-example-com_
 >5. Поднимите на localhost nginx, сконфигурируйте default vhost для использования подписанного Vault Intermediate CA сертификата и выбранного вами домена. Сертификат из Vault подложить в nginx руками.
 
 
-Руками из файла nginx.cert достал часть сертификата  и положил в web.avia-example.com.crt и часть приватного ключа и положил в web.avia-example.com.key
+Руками из файла nginx.cert достал часть сертификата с сертификатом issuing_ca и положил в web.avia-example.com.crt, а часть приватного ключа положил в web.avia-example.com.key
 (хотя можно было разобрать _| tee_   
  _>(jq -r .data.certificate > ca.pem) \_  
  _>(jq -r .data.private_key > ca-key.pem)_  
  Уже потом увидел пример  
 )
 
-/etc/nginx/sites-enabled/
-         listen 443 ssl default_server;
-                listen [::]:443 ssl default_server;
-         ssl_certificate /root/certs/web.avia-example.com.crt;
-         ssl_certificate_key /root/certs/web.avia-example.com.key;
+**/etc/nginx/sites-enabled/**   
+         listen 443 ssl default_server;  
+                listen [::]:443 ssl default_server;  
+         ssl_certificate /root/certs/web.avia-example.com.crt;  
+         ssl_certificate_key /root/certs/web.avia-example.com.key;  
 
 >6. Модифицировав `/etc/hosts` и [системный trust-store](http://manpages.ubuntu.com/manpages/focal/en/man8/update-ca-certificates.8.html), добейтесь безошибочной с точки зрения HTTPS работы curl на ваш тестовый домен (отдающийся с localhost).
 
@@ -102,10 +102,9 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 
 
 
-Подложил корневой  и промежуточный сертификат в хранилище доверенных. И обновил список.
+Подложил корневой  сертификат в хранилище доверенных корневых сертификатов. И обновил список.
 **# ln -s /root/HCvault/CA_cert.crt /usr/local/share/ca-certificates/CA_cert.crt**
-**#ln -s /root/HCvault/intermediate.cert.pem  /usr/local/share/ca-certificates/ intermediate.cert.crt**
-**#update-ca-certificates --fresh**
+#update-ca-certificates --fresh
 
 **# curl https://web.avia-example.com**
 <!DOCTYPE html>
@@ -116,8 +115,8 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
     body { …
 
 
->7. Ознакомьтесь(https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
-Ознакомился
+>7. [Ознакомьтесь](https://letsencrypt.org/ru/docs/client-options/) с протоколом ACME и CA Let's encrypt. Если у вас есть во владении доменное имя с платным TLS-сертификатом, который возможно заменить на LE, или же без HTTPS вообще, попробуйте воспользоваться одним из предложенных клиентов, чтобы сделать веб-сайт безопасным (или перестать платить за коммерческий сертификат).  
+Изучил
 
 >8.Дополнительное задание вне зачета. Вместо ручного подкладывания сертификата в nginx, воспользуйтесь [Consul](https://medium.com/hashicorp-engineering/pki-as-a-service-with-hashicorp-vault-a8d075ece9a) для автоматического подтягивания сертификата из Vault.  
 
@@ -126,9 +125,9 @@ More details here: https://curl.haxx.se/docs/sslcerts.html
 Это проигнорировал, 
 _setopt – используется в  zsh,_
 
-Не задолось с установкой Токена в root:
+Не использоваk установку токена вы root:
 VAULT_UI=true vault server -dev -dev-root-token-id="root"
-Сделал со сгенерированным сервером.
+Не стал разбираться использовал Токен сгенерированный сервером. 
 
 Также изменил:
 **/etc/systemd/system/ consul-template.service**
@@ -147,14 +146,16 @@ KillSignal=SIGINT
 [Install]
 WantedBy=multi-user.target__
 
-Также пока не добавил корневой и промежуточный сертификат получил ошибки. 
-Не успел вызвать уже истек =), несколько секунд между вызовами. 
-root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
+
+**# curl https://web.avia-example.com**
 <!DOCTYPE html>
 <html>
 <head>
 ….
-root@ubuntu20:/etc/nginx/certs# curl https://web.avia-example.com
+	
+Если остановить consul-template:
+**systemctl stop  consul-template**
+То быстро можно добиться, увидеть, что сертификат истек: 
+**# curl https://web.avia-example.com**
 curl: (60) SSL certificate problem: certificate has expired
 More details here: https://curl.haxx.se/docs/sslcerts.html
-
