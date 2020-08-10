@@ -1,19 +1,17 @@
-# -*- coding: cp1251 -*-
 # !/usr/bin/env python3
+# -*- coding: utf8 -*-
 import os
 
-bash_command = ["cd C:\\Users\\kaa\\PycharmProjects\\DevOps\\devops-netology\\HomeWorks", "git status"]
+git_dir=os.path.expanduser('~/Git_test/testhook')
+
+bash_command = [f'cd {git_dir}', 'git status']
+print(bash_command)
 result_os = os.popen (' && '.join(bash_command)).read ()
+print(result_os)
 is_change = False
 for result in result_os.split ('\n'):
     if result.find ('modified') != -1:
         prepare_result = result.replace ('\tmodified:   ', '')
-        print (prepare_result)
-        break
+        print(os.path.join(git_dir,prepare_result))
+        #break
 
-
-# Мы устроились на работу в компанию, где раньше уже был DevOps Engineer. Он написал скрипт, позволяющий узнать какие файлы модифицированы в
-#репозитории, относительно локальных изменений. Этим скриптом недовольно начальство,
-#потому что в его выводе не хватает изменённых файлов
-#и не понятно, в какой директории они находятся.
-#  Как можно доработать скрипт ниже, чтобы он исполнял требования вашего руководителя?
