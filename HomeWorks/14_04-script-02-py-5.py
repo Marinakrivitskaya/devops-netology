@@ -1,7 +1,6 @@
 # -*- coding: utf8 -*-
 import os
 import sys
-import time
 
 #https://github.com/PyGithub/PyGithub
 from github import Github
@@ -10,17 +9,19 @@ from github import Github
 #https://pygithub.readthedocs.io/en/latest/examples/PullRequest.html
 #https://pygithub.readthedocs.io/en/latest/examples.html
 
-g = Github("7523e782b42ba44b11a6ab1eb7ca364c576cdd0a")
-g = Github(base_url="https://api.github.com", login_or_token="7523e782b42ba44b11a6ab1eb7ca364c576cdd0a")
+if len (sys.argv) > 1:
+    pr_body=sys.argv[1]
+    print("pr_body= ",pr_body)
+else:
+    raise BaseException ("Not enough arguments!")
 
-# Then play with your Github objects:
 
-
-for repo in g.get_user().get_repos():
-    print(repo.name)
-
-repo = g.get_user().get_repo("devops-netology")
-print(repo)
+#Переходим в каталог репозитория
+os.popen('cd /home/kaa/PycharmProjects/DevOps/devops-netology/')
+print(os.getcwd())
+#print(os.popen("git checkout -b conf-merge"))
+print(os.popen("git checkout  conf-merge"))
+print(os.popen("git commit -a -m 'new_config'"))
 
 
 
