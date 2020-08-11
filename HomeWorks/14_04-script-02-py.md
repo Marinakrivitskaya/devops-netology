@@ -35,7 +35,7 @@
 
 >2. Мы устроились на работу в компанию, где раньше уже был DevOps Engineer. Он написал скрипт, позволяющий узнать какие файлы модифицированы в репозитории, относительно локальных изменений. Этим скриптом недовольно начальство, потому что в его выводе не хватает изменённых файлов и не понятно, в какой директории они находятся. Как можно доработать скрипт ниже, чтобы он исполнял требования вашего руководителя?
 
-	```python
+```python
     #!/usr/bin/env python3
 
     import os
@@ -49,7 +49,7 @@
             print(prepare_result)
             break
 
-	```
+```
 
 ```python
 # !/usr/bin/env python3
@@ -192,8 +192,8 @@ g = Github("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 g = Github(base_url="https://api.github.com", login_or_token="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 #Просматриваем все репозитории
-for repo in g.get_user().get_repos():
-    print(repo.name)
+#for repo in g.get_user().get_repos():
+#    print(repo.name)
 
 #Выбираем репозиторий
 repo = g.get_user().get_repo("devops-netology")
