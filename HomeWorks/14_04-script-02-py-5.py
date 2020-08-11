@@ -1,3 +1,4 @@
+# !/usr/bin/env python3
 # -*- coding: utf8 -*-
 import os
 import sys
@@ -21,7 +22,25 @@ os.popen('cd /home/kaa/PycharmProjects/DevOps/devops-netology/')
 print(os.getcwd())
 #print(os.popen("git checkout -b conf-merge"))
 print(os.popen("git checkout  conf-merge"))
-print(os.popen("git commit -a -m 'new_config'"))
+#print(os.popen("git commit -a -m 'new_config'"))
+
+#Отправьте новую ветку в репозиторий на гитхабе
+#print(os.popen("git push -u origin conf-merge"))
+
+#Подключаемся используя Токен
+g = Github("7523e782b42ba44b11a6ab1eb7ca364c576cdd0a")
+g = Github(base_url="https://api.github.com", login_or_token="4cdd014c69f4c00aeb36e5eea002eb5e02950ac3")
+
+#Просматриваем все репозитории
+for repo in g.get_user().get_repos():
+    print(repo.name)
+
+#Выбираем репозиторий
+repo = g.get_user().get_repo("devops-netology")
+print(repo)
+
+#Делаем Pull Request
+pr = repo.create_pull(title="Request for merge conf-merge with master", body=pr_body, head="conf-merge", base="master")
 
 
 
