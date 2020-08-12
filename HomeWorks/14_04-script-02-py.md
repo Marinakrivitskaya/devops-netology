@@ -200,11 +200,11 @@ g = Github(base_url="https://api.github.com", login_or_token="XXXXXXXXXXXXXXXXXX
 repo = g.get_user().get_repo("devops-netology")
 print(repo)
 
-try:
-	#Делаем Pull Request
-	pr = repo.create_pull(title="Request for merge conf-merge with master", body=pr_body, head="conf-merge", base="master")
-except GithubException as err:
-	print(f"ERROR: Pull request already exist")
-	#Если вывести подробную ошибку
-	#raise Exception(f"ERROR: {err}")	
+try:  
+    #Делаем Pull Request  
+    pr = repo.create_pull(title="Request for merge conf-merge with master", body=pr_body, head="conf-merge", base="master")  
+except GithubException as err:  
+    print(f"ERROR: Pull request already exist")  
+    #Если вывести подробную ошибку  
+    #raise Exception(f"ERROR: {err}")  	
 ```
