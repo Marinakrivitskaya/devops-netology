@@ -35,7 +35,7 @@
 
 >2. Мы устроились на работу в компанию, где раньше уже был DevOps Engineer. Он написал скрипт, позволяющий узнать какие файлы модифицированы в репозитории, относительно локальных изменений. Этим скриптом недовольно начальство, потому что в его выводе не хватает изменённых файлов и не понятно, в какой директории они находятся. Как можно доработать скрипт ниже, чтобы он исполнял требования вашего руководителя?
 
-	```python
+```python
     #!/usr/bin/env python3
 
     import os
@@ -49,7 +49,7 @@
             print(prepare_result)
             break
 
-	```
+```
 
 ```python
 # !/usr/bin/env python3
@@ -165,6 +165,7 @@ from github import Github
 #https://developer.github.com/v3/repos/
 #https://pygithub.readthedocs.io/en/latest/github_objects/Repository.html
 #https://pygithub.readthedocs.io/en/latest/examples.html
+from github import GithubException
 
 if len (sys.argv) > 1:
     pr_body=sys.argv[1]
@@ -192,13 +193,18 @@ g = Github("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 g = Github(base_url="https://api.github.com", login_or_token="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 #Просматриваем все репозитории
-for repo in g.get_user().get_repos():
-    print(repo.name)
+#for repo in g.get_user().get_repos():
+#    print(repo.name)
 
 #Выбираем репозиторий
 repo = g.get_user().get_repo("devops-netology")
 print(repo)
 
-#Делаем Pull Request
-pr = repo.create_pull(title="Request for merge conf-merge with master", body=pr_body, head="conf-merge", base="master")
+try:  
+    #Делаем Pull Request  
+    pr = repo.create_pull(title="Request for merge conf-merge with master", body=pr_body, head="conf-merge", base="master")  
+except GithubException as err:  
+    print(f"ERROR: Pull request already exist")  
+    #Если вывести подробную ошибку  
+    #raise Exception(f"ERROR: {err}")  	
 ```
