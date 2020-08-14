@@ -51,7 +51,13 @@ TESTS
 
 #Делаем Pull Request
 #pr = repo.create_pull(title="Use 'requests' instead of 'httplib'", body=body, head="fix", base="master")
-
+try:
+   #Делаем Pull Request
+   pr = repo.create_pull(title="Request for merge conf-merge with master", body=pr_body, head="conf-merge", base="master")
+except GithubException as err:
+   print(f"ERROR: Pull request already exist")
+   #Если вывести подробную ошибку
+   #raise Exception(f"ERROR: {err}")
 
 
 #Просмотреть список
