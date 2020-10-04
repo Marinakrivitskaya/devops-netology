@@ -123,7 +123,7 @@ Docker, каждый компонент в отдельном контейнер
 
 
 
-Создал файл конфигурации: **~/****docker/****kaa-****httpd/Dockerfile**
+Создал файл конфигурации: **~/docker/kaa-httpd/Dockerfile**
 
 *FROM httpd:2.4*
 
