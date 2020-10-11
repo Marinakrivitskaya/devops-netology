@@ -70,11 +70,11 @@
 
 
 
-**docker build -t kaaa/archlinux:ponysay .**
+**#docker build -t kaaa/archlinux:ponysay .**
 
 
 
-**docker run kaaa/archlinux:ponysay "Hi again"**
+**#docker run kaaa/archlinux:ponysay "Hi again"**
 
 http://prntscr.com/ux9fyy
 
