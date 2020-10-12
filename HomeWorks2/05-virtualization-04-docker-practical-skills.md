@@ -136,7 +136,7 @@ http://prntscr.com/ux9fyy
 
 
 
-**Dockerfile****:**
+**Dockerfile:**
 
 *FROM amazoncorretto*
 
@@ -422,15 +422,14 @@ https://hub.docker.com/r/kaaa/ubuntu/tags/
 
  
 
- \#Собираем образ
-
+ Собираем образ
 **docker build -t node:demo1 .**
 
 
 
 
 
-\#По дефолту создается bridge, но мы укажим вид
+По дефолту создается bridge, но мы все же укажем
 
 **#docker network create --subnet 192.168.90.0/24 --gateway=192.168.90.1 --ip-range 192.168.90.0/24 node-network**
 
@@ -438,7 +437,7 @@ https://hub.docker.com/r/kaaa/ubuntu/tags/
 
 
 
-\Запуск контейнера с Node
+Запуск контейнера с Node
 
 **docker run -p 3000:3000 -dt --name=node1 --net=node-network node:demo1**
 
