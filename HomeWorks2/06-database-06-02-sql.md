@@ -40,9 +40,9 @@
 
   *volumes:*
 
-​    *- "./database:/database"*
+   *- "./database:/database"*
 
-​    *- "./db_backup:/db_backup"*
+   *- "./db_backup:/db_backup"*
 
  
 
@@ -76,9 +76,9 @@
 
 *boot    docker-entrypoint-initdb.d lib  opt  sbin usr*
 
-***database\***  *docker-entrypoint.sh    lib64 proc srv  var*
+**database\**  *docker-entrypoint.sh    lib64 proc srv  var*
 
-***db_backup\***  *etc             media root sys*
+**db_backup\**  *etc             media root sys*
 
  
 
@@ -132,11 +132,11 @@
 
  
 
-**>создайте пользователя** **test****-****admin****-****user** **и БД** **test****-****db**
+**>создайте пользователя test-admin-user и БД test-db**
 
 Подключаемся к postgres
 
-**#****docker-compose exec -u postgres server-postgres psql**
+**#docker-compose exec -u postgres server-postgres psql**
 
  
 
@@ -154,7 +154,7 @@ postgres=**#CREATE USER "test-admin-user" WITH PASSWORD '111';**
 
  
 
-**>****в** **БД** **test-db** **создайте** **таблицу** **orders** **и** **clients (****спецификация** **таблиц** **ниже****)**
+**>в БД test-db создайте таблицу orders и clients (спецификация таблиц ниже)**
 
 Переключаемся на созданную БД
 
@@ -184,7 +184,7 @@ postgres=**#CREATE USER "test-admin-user" WITH PASSWORD '111';**
 
 **id integer PRIMARY KEY,**
 
-**"фамилия"** **text****,**
+**"фамилия" text,**
 
 **"****страна** **проживания****" text,**
 
@@ -411,7 +411,7 @@ Filter: для каждой считанной  строки проверяет�
 
 **#ANALYZE clients;**
 
-**test-db=# EXPLAIN SELECT "фамилия****" FROM clients WHERE "заказ****" IS NOT NULL;**
+**test-db=# EXPLAIN SELECT "фамилия" FROM clients WHERE "заказ" IS NOT NULL;**
 
 ​            *QUERY PLAN*
 
@@ -427,7 +427,7 @@ Filter: для каждой считанной  строки проверяет�
 
 Можно вывести реальный план:
 
-**test-db=# EXPLAIN(ANALYZE) SELECT "фамилия****" FROM clients WHERE "заказ****" IS NOT NULL;**
+**test-db=# EXPLAIN(ANALYZE) SELECT "фамилия" FROM clients WHERE "заказ" IS NOT NULL;**
 
 ​                      *QUERY PLAN*
 
