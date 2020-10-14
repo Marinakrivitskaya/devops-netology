@@ -64,7 +64,7 @@
 
 Запуск проекта
 
-**#****docker-****compose** **up -d**
+**#docker-compose up -d**
 
  
 
@@ -72,13 +72,9 @@
 
 **# docker-compose exec server-postgres ls /**
 
-*bin    dev             home  mnt  run  tmp*
+*bin    dev             ho  *docker-entrypoint.sh    lib64 proc srv  var*
 
-*boot    docker-entrypoint-initdb.d lib  opt  sbin usr*
-
-**database\**  *docker-entrypoint.sh    lib64 proc srv  var*
-
-**db_backup\**  *etc             media root sys*
+db_backup  *etc             media root sys*
 
  
 
