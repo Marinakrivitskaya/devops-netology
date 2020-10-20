@@ -24,6 +24,7 @@
 > Посмотреть статус Mysql
 
 **mysql> \s**
+
 *Server version:     8.0.21 MySQL Community Server – GPL*
 
 
