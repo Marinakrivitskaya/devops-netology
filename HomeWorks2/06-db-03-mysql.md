@@ -52,11 +52,17 @@
 > Приведите в ответе количество записей с price > 300.
 
 **mysql> SELECT \* FROM orders WHERE price > 300;**
+
 +----+----------------+-------+
+
 | id | title     | price |
+
 +----+----------------+-------+
+
 | 2 | My little pony |  500 |
+
 +----+----------------+-------+
+
 1 row in set (0.00 sec)
 
 
@@ -108,9 +114,13 @@
 > Используя таблицу INFORMATION_SCHEMA.USER_ATTRIBUTES получите данные по пользователю test и приведите в ответе к задаче.
 **SELECT \* FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER='test';**
 +------+------+-----------------------------------------+\
-| USER | HOST | ATTRIBUTE                |\***
+
+| USER | HOST | ATTRIBUTE                |\
+
 +------+------+-----------------------------------------+\
+
 | test | %  | {"fname": "James", "lname": " Pretty "} |\
+
 +------+------+-----------------------------------------+\
 
 
