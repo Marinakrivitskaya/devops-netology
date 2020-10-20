@@ -3,7 +3,10 @@
 #Поддиректории с проектами
 virt-homeworks/
 sysadm-homeworks/
+
+#Для Тани
 Tanya/
+Tanya/*.py
 
 #pycharm
 .idea/
