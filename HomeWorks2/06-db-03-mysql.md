@@ -31,19 +31,19 @@
 
 > Получите список таблиц из этой БД
 
-*mysql> SHOW TABLES;*
+**mysql> SHOW TABLES;**
 
-*+-------------------+*
++-------------------+
 
-*| Tables_in_test_db |*
+| Tables_in_test_db |
 
-*+-------------------+*
++-------------------+*
 
-*| orders      |*
+| orders      |
 
-*+-------------------+*
++-------------------+
 
-*1 row in set (0.00 sec)*
+1 row in set (0.00 sec)
 
 
 
@@ -51,19 +51,13 @@
 
 > Приведите в ответе количество записей с price > 300.
 
-*mysql> SELECT \* FROM orders WHERE price > 300;*
-
-*+----+----------------+-------+*
-
-*| id | title     | price |*
-
-*+----+----------------+-------+*
-
-*| 2 | My little pony |  500 |*
-
-*+----+----------------+-------+*
-
-*1 row in set (0.00 sec)*
+**mysql> SELECT \* FROM orders WHERE price > 300;**
++----+----------------+-------+
+| id | title     | price |
++----+----------------+-------+
+| 2 | My little pony |  500 |
++----+----------------+-------+
+1 row in set (0.00 sec)
 
 
 
@@ -112,18 +106,12 @@
 
 
 > Используя таблицу INFORMATION_SCHEMA.USER_ATTRIBUTES получите данные по пользователю test и приведите в ответе к задаче.
-
-   **SELECT \* FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER='test';**
-
-***+------+------+-----------------------------------------+\***
-
-***| USER | HOST | ATTRIBUTE                |\***
-
-***+------+------+-----------------------------------------+\***
-
-***| test | %  | {"fname": "James", "lname": " Pretty "} |\***
-
-***+------+------+-----------------------------------------+\***
+**SELECT \* FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER='test';**
++------+------+-----------------------------------------+\
+| USER | HOST | ATTRIBUTE                |\***
++------+------+-----------------------------------------+\
+| test | %  | {"fname": "James", "lname": " Pretty "} |\
++------+------+-----------------------------------------+\
 
 
 
@@ -215,31 +203,31 @@
 
 *#Скорость* *IO важнее сохранности данных*
 
-*innodb_**flush_**log_**at_**trx_**commit = 2*
+*innodb_flush_log_at_trx_commit = 2*
 
  
 
 *#работает быстрее (меньше надежности)*
 
-*innodb_**flush_**method =* *O_**DIRECT*
+*innodb_flush_method = O_DIRECT*
 
  
 
 *#Компрессии таблиц для экономии места на диске*
 
-*innodb_**file_**per_**table =* *ON*
+*innodb_file_per_table = ON*
 
 
 
- *#Размер буффера с незакомиченными транзакциями 1 Мб*
+*#Размер буффера с незакомиченными транзакциями 1 Мб*
 
-*innodb_**log_**buffer_**size = 1**M*
+*innodb_log_buffer_size = 1M*
 
 
 
  *#Буффер кеширования 30% от ОЗУ*
 
-*innodb_**buffer_**pool_**size = 2**G*
+*innodb_buffer_pool_size = 2G*
 
 
 
