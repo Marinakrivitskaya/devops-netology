@@ -17,8 +17,8 @@ resource "aws_instance" "ubuntu_new2" {
 
 
   // Для каждлого значения в local.ubuntu_instance_names_map
-  for_each = local.ubuntu_instance_names_map
-  //count = 0
+  //for_each = local.ubuntu_instance_names_map
+  count = 0
 
   provider = aws
   ami = data.aws_ami.aws_ubuntu.id
@@ -28,9 +28,9 @@ resource "aws_instance" "ubuntu_new2" {
 [terraform.workspace]
 tags = {
 //Для определение имени берем значение ключа из ubuntu_instance_names_map
-"Name" = each.key
+//"Name" = each.key
 //Для определение имени берем значение value из ubuntu_instance_names_map
-"GroupName" = each.value
+//"GroupName" = each.value
 }
 
 //внешний IP нужен

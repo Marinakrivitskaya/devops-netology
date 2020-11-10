@@ -1,3 +1,13 @@
+>Вывод команды terraform workspace list.  
+``` cmd
+C:\Users\kaa\PycharmProjects\DevOps\devops-netology\terraform\07-terraform-03-basic>terraform workspace list
+  default
+* prod
+  stage
+```
+
+
+>•	Вывод команды terraform plan для воркспейса prod.  
 ```terraform
 "C:\Program Files\JetBrains\PyCharm 2018.1.3\bin\runnerw.exe" I:\Terraform\bin\terraform.exe plan
 Refreshing Terraform state in-memory prior to plan...
@@ -369,3 +379,4 @@ can't guarantee that exactly these actions will be performed if
 
 Process finished with exit code 0
 ```
+

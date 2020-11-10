@@ -13,8 +13,17 @@ locals {
   ubuntu_instance_workspace_count_map = {
     //stage = "t3.nano"
     stage = 1
-    prod = 2
+    prod = 0
     default = 0
+  }
+}
+
+
+locals {
+  ubuntu_instance_workspace_states_map = {
+    stage = 0
+    prod = 0
+    default = 1
   }
 }
 
@@ -27,16 +36,6 @@ locals {
   }
 }
 
-
-// В default создается политики и s3_backend,
-// в остальных Workspace - это игнорируется
-locals {
-  ubuntu_instance_workspace_states_map = {
-    stage = 0
-    prod = 0
-    default = 1
-  }
-}
 
 
 // Перечень security_group VPC для каждого workspace
