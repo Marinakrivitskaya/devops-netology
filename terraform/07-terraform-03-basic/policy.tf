@@ -1,4 +1,4 @@
-//Импортирал сюда политики, Включает политики:
+//Включает набор политик:
 //AmazonEC2FullAccess
 //AmazonS3FullAccess
 //AmazonDynamoDBFullAccess
@@ -6,39 +6,14 @@
 //CloudWatchFullAccess
 //IAMFullAccess
 
-
-
-//Добавлено для работы с S3 Bucket
-//https://www.terraform.io/docs/backends/types/s3.html
-//        {
-//      "Effect": "Allow",
-//      "Action": "s3:ListBucket",
-//      "Resource": "arn:aws:s3:::mybucket"
-//       },
-//       {
-//          "Effect": "Allow",
-//          "Action": ["s3:GetObject", "s3:PutObject"],
-//         "Resource": "arn:aws:s3:::mybucket/path/to/my/key"
-//        },
-//#Добавлено для работы с DynamoDB Table
-//       {
-//          "Effect": "Allow",
-//          "Action": [
-//          "dynamodb:GetItem",
-//          "dynamodb:PutItem",
-//          "dynamodb:DeleteItem"
-//      ],
-//          "Resource": "arn:aws:dynamodb:*:*:table/mytable"
-//    }
-//
-
-
 resource "aws_iam_policy" "terraform__user_policy" {
-  name = "terraform__user_policy"
-  path = "/"
-  description = "Policy for work with Terraform"
+  count = local.ubuntu_instance_workspace_states_map
+[terraform.workspace]
+name = "terraform__user_policy"
+path = "/"
+description = "Policy for work with Terraform"
 
-  policy = <<EOF
+policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -217,7 +192,25 @@ resource "aws_iam_policy" "terraform__user_policy" {
                     "iam:AWSServiceName": "events.amazonaws.com"
                 }
             }
-        },
+        }
+    ]
+}
+EOF
+}
+
+//Добавлено для работы с Backend S3 Bucket
+//https://www.terraform.io/docs/backends/types/s3.html
+
+resource "aws_iam_policy" "terraform__backend_s3_bucket_policy" {
+count = local.ubuntu_instance_workspace_states_map[terraform.workspace]
+name = "terraform__backend_s3_bucket_policy"
+path = "/"
+description = "Policy for work with Backend S3_bucket  Terraform"
+
+policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
         {
             "Effect": "Allow",
             "Action": "s3:ListBucket",
@@ -226,7 +219,7 @@ resource "aws_iam_policy" "terraform__user_policy" {
        {
           "Effect": "Allow",
           "Action": ["s3:GetObject", "s3:PutObject"],
-          "Resource": "arn:aws:s3:::mybucket/path/to/my/key"
+          "Resource": "arn:aws:s3:::kaa-terraform-states/main-infra/terraform.tfstate"
        },
        {
           "Effect": "Allow",
@@ -241,6 +234,5 @@ resource "aws_iam_policy" "terraform__user_policy" {
 }
 EOF
 }
-
 
 
