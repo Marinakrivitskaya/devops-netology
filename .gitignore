@@ -1,8 +1,9 @@
 # Byte-compiled / optimized / DLL files
 
-#Поддиректории с проектами
+#Поддиректории с другими проектами
 virt-homeworks/
 sysadm-homeworks/
+rep-terraform/
 
 #Для Тани
 Tanya/

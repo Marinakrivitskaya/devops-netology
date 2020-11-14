@@ -11,20 +11,12 @@ locals {
 locals {
   ubuntu_instance_workspace_count_map = {
     //stage = "t3.nano"
-    stage = 1
+    stage = 0
     prod = 0
     default = 0
   }
 }
 
-#Для определение политики и s3 только в namespaces default
-locals {
-  ubuntu_instance_workspace_states_map = {
-    stage = 0
-    prod = 0
-    default = 1
-  }
-}
 
 //переменная имени группы от текущего workspace
 locals {
@@ -36,12 +28,11 @@ locals {
 }
 
 
-
-// Перечень security_group VPC для каждого workspace
-locals {
-  ubuntu_instance_workspace_sgvpc__map = {
-    stage = "sg-vpcid-stage"
-    prod = "sg-vpcid-prod"
-    default = "sg-vpcid-default"
-  }
-}
+//// Перечень security_group VPC для каждого workspace
+//locals {
+//  ubuntu_instance_workspace_sgvpc__map = {
+//    stage = "sg-vpcid-stage"
+//    prod = "sg-vpcid-prod"
+//    default = "sg-vpcid-default"
+//  }
+//}
