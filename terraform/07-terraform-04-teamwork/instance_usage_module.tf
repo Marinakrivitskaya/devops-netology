@@ -1,4 +1,4 @@
-//Используем модуль aws-vpc  https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
+//Используем модуль ec2-instance  https://registry.terraform.io/modules/terraform-aws-modules/ec2-instance/aws
 
 module "ec2_cluster_test" {
   source = "terraform-aws-modules/ec2-instance/aws"
