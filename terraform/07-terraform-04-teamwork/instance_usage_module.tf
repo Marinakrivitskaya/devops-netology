@@ -6,7 +6,7 @@ module "ec2_cluster_test" {
 
 
   #instance_count         = local.ubuntu_instance_workspace_count_map[terraform.workspace]
-  count = 3
+  count                   = local.ubuntu_instance_workspace_count_map[terraform.workspace]
 
   name                   = "test_ubuntu_${count.index}"
   #name                   = "test_ubuntu_"
