@@ -1,7 +1,7 @@
 //переменная типа Instance зависимая от текущего workspace
 locals {
   ubuntu_instance_workspace_type_map = {
-    stage = "t3.nano"
+    stage = "t2.micro"
     prod = "t2.micro"
     default = "t2.micro"
   }
@@ -12,7 +12,7 @@ locals {
   ubuntu_instance_workspace_count_map = {
     //stage = "t3.nano"
     stage = 1
-    prod = 0
+    prod = 1
     default = 0
   }
 }
@@ -22,7 +22,7 @@ locals {
   ubuntu_instance_workspace_states_map = {
     stage = 0
     prod = 0
-    default = 1
+    default = 0
   }
 }
 

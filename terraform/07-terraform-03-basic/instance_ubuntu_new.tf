@@ -1,5 +1,6 @@
 //// создаем  Instance ubuntu
 resource "aws_instance" "ubuntu_new" {
+
   count = local.ubuntu_instance_workspace_count_map
 [terraform.workspace]
 provider = aws

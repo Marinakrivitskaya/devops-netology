@@ -1,0 +1,32 @@
+repos:
+#1.	Укажите, что атлантис должен работать только для репозиториев в вашем github (или любом другом) аккаунте.
+- id: https://github.com/syatihoko/terraform
+
+  # apply_requirements sets the Apply Requirements for all repos that match.
+  apply_requirements: [approved, mergeable]
+
+  # workflow sets the workflow for all repos that match.
+  # This workflow must be defined in the workflows section.
+  workflow: custom
+
+#2.	На стороне клиентского конфига разрешите изменять workflow, то есть для каждого репозитория можно будет указать свои дополнительные команды.
+  allowed_overrides: [workflow]
+
+#Внутри конкретных репозиториев позволяем сделать\определить  custom workflow
+  allow_custom_workflows: true
+
+# workflows lists server-side custom workflows
+workflows:
+  custom:
+    plan:
+      steps:
+      - run: my-custom-command arg1 arg2
+      - init
+      - plan:
+#3.	В workflow используемом по-умолчанию сделайте так, что бы во время планирования не происходил lock состояния.
+          extra_args: ["-lock", "false"]
+      - run: my-custom-command arg1 arg2
+    apply:
+      steps:
+      - run: echo hi
+      - apply
