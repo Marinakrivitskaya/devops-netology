@@ -24,8 +24,7 @@ resource "aws_instance" "ubuntu_new2" {
   ami = data.aws_ami.aws_ubuntu.id
   //instance_type = "t2.micro"
   //Значение типа от текущего workspace
-  instance_type = local.ubuntu_instance_workspace_type_map
-[terraform.workspace]
+  instance_type = local.ubuntu_instance_workspace_type_map[terraform.workspace]
 tags = {
 //Для определение имени берем значение ключа из ubuntu_instance_names_map
 //"Name" = each.key

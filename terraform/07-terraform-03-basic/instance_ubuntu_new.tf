@@ -1,8 +1,7 @@
 //// создаем  Instance ubuntu
 resource "aws_instance" "ubuntu_new" {
 
-  count = local.ubuntu_instance_workspace_count_map
-[terraform.workspace]
+  count = local.ubuntu_instance_workspace_count_map[terraform.workspace]
 provider = aws
 ami = data.aws_ami.aws_ubuntu.id
 //instance_type = "t2.micro"
