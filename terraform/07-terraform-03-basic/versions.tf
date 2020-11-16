@@ -9,16 +9,16 @@ terraform {
 
 
 #s3_bucket для хранения backend s3
-resource "aws_s3_bucket" "kaa-terraform-states" {
-  #count = local.ubuntu_instance_workspace_states_map[terraform.workspace]
-bucket = "kaa-terraform-states"
-acl = "private"
-
-tags = {
-    Name = "Terraform-states"
-    Environment = "Test"
-  }
-}
+//resource "aws_s3_bucket" "kaa-terraform-states" {
+//  #count = local.ubuntu_instance_workspace_states_map[terraform.workspace]
+//bucket = "kaa-terraform-states"
+//acl = "private"
+//
+//tags = {
+//    Name = "Terraform-states"
+//    Environment = "Test"
+//  }
+//}
 
 
 terraform {
