@@ -1,0 +1,8 @@
+---
+#группа elasticsearch
+  elasticsearch:
+    hosts:
+    #это на самом деле проброшенный ssh на вирт. машину.
+      localhost:
+        ansible_connection: ssh
+        ansible_user: root

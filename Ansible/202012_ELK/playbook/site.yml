@@ -1,0 +1,85 @@
+---
+  #1.Ставим Java на все хосты
+  - name: Install Java
+    hosts: all
+    tasks:
+      - name: Set facts for Java 8 vars #!!нужна 11 версия
+        ansible.builtin.set_fact:   #Создаем новый факт, модуль с версии 2.10 рекомендуется писать с именем коллекции - ansible.builtin.
+          java_home: "/opt/jdk/{{ java_jdk_version }}"  #В group_vars-all определена версия
+        tags: java
+      - name: Upload .tar.gz file containing binaries from local storage #загружаем архив с локального хранилища
+        ansible.builtin.copy:   #копируем архив с текущей локальной машины на удаленный Managed node
+        #Если файл уже есть то копирования не будет, Task будет успешной
+          src: "{{ java_oracle_jdk_package }}"
+          dest: "/tmp/jdk-{{ java_jdk_version }}.tar.gz"
+        register: download_java_binaries  #регистрируем результат выполнения в переменной
+        until: download_java_binaries is succeeded  #until - цикл Ansible, в котором проверяем что команда была выполнена успешно
+        #until: - повторение Task пока не будет выполнено условие (3 раза с задержкой 5 сек.)
+        tags: java
+      - name: Ensure installation dir exists
+        become: true  #Пытаемся получить большие привилегие чем были
+        ansible.builtin.file:  #Модуль файл
+          state: directory   #создать по пути директорию, если её нет
+          path: "{{ java_home }}"  #переменная указанная в set_fact
+        tags: java
+      - name: Extract java in the installation directory
+        #раскрываем архив в ранее созданную директорию
+        become: true
+        #check_mode: no #если хотим пропустить при прорверке, так как нельзя использовать результат симуляционного копирования (файла по факту не будет)
+        unarchive:  # модуль разархивирование
+          copy: false   #если true, то архив на локальной машине, иначе уже на удаленной.
+          src: "/tmp/jdk-{{ java_jdk_version }}.tar.gz"  #файл, который разархивируем
+          dest: "{{ java_home }}"  #куда разархивируем
+          extra_opts: [--strip-components=1]  #поглотить корневой folder и распаковать на -1 вложеность
+          creates: "{{ java_home }}/bin/java"  #если этот файл существует, то мы этот Task (распаковку) выполнять не будет
+        tags:
+          - skip_ansible_lint #Избежать проверки Таска ansible_lint (не особо тут нужен)
+          #ansible_lint используется для анализа, что можно улучшить
+          - java
+      - name: Export environment variables #прописываем переменные для Java
+        become: true
+        template:
+          src: jdk.sh.j2  #Переопределяем переменные в j2, формируем файл
+          dest: /etc/profile.d/jdk.sh #Сохраняет его по этому пути
+          #при запуске любой сессии в bash вычитываются файлы из директории /etc/profile.d/,
+          #тоесть если определить тут переменные то они будут у всех сессий при создании (в рамках данного пользователя)
+          #если для всех вообще, то нужно писать /etc/environment
+        tags: java
+  #2.Следующий Play установки Elasticsearch
+  - name: Install Elasticsearch
+    hosts: elasticsearch
+    tasks:
+      - name: Upload tar.gz Elasticsearch from remote URL
+        get_url:  #Мы будем ставить через скачивание архива, а не через репозиторий.
+          url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elastic_version }}-linux-x86_64.tar.gz"
+          dest: "/tmp/elasticsearch-{{ elastic_version }}-linux-x86_64.tar.gz"  #если указать просто директорию без имени файла, то имя файла будет взято из source
+          mode: 0755
+          timeout: 60  #увеличиваем, так как 10 сек (по умолчанию) не хватает для скачки и будет ошибка
+          force: true #принудительно..
+        register: get_elastic
+        until: get_elastic is succeeded
+        tags: elastic
+      - name: Create directrory for Elasticsearch
+        file:
+          state: directory
+          path: "{{ elastic_home }}"
+        tags: elastic
+      - name: Extract Elasticsearch in the installation directory
+        become: true
+        unarchive:
+          copy: false
+          src: "/tmp/elasticsearch-{{ elastic_version }}-linux-x86_64.tar.gz"   #лучше все переменные прописывать в vars
+          dest: "{{ elastic_home }}"
+          extra_opts: [--strip-components=1]  #без этого параметра будет из  elastic_home: "/opt/elastic/{{ elastic_version }}"
+          # мы получим /opt/elastic/7.10.1/elasticsearch-7.10.1/, а должно /opt/elastic/7.10.1/
+          creates: "{{ elastic_home }}/bin/elasticsearch"  #если этот файл существует, то мы этот Task
+        tags:
+          - skip_ansible_lint
+          - elastic
+      - name: Set environment Elastic
+        become: yes
+        template:
+          src: templates/elk.sh.j2
+          dest: /etc/profile.d/elk.sh
+          #backup: true #каждый раз, когда конфиг будет меняться, он будет делать бэкап предыдущей версии в тойже директории.
+        tags: elastic
