@@ -177,6 +177,7 @@ def main():
     date_of_file = datetime.today().strftime('%y-%m-%d')
     print(date_of_file)
     file_name = f'/var/log/{date_of_file}-awesome-monitoring.log'
+    #file_name = f'/tmp/{date_of_file}-awesome-monitoring.log'
     # print(meminfo())
     # print(diskstats())
     # print(netdev())
@@ -192,8 +193,9 @@ def main():
     result_dict['netdev'] = netdev()
 
     try:
-        with open(file_name, 'w') as fp:
+        with open(file_name, 'ab') as fp:
             fp.write(json.dumps(result_dict).encode("utf-8"))
+            fp.write(('\n').encode("utf-8")) #перенос строки
     except json.JSONEncoder as err:
         return 1
     except IOError as e:
@@ -205,5 +207,5 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
 
