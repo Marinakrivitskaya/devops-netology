@@ -164,5 +164,6 @@ https://github.com/syatihoko/devops-netology/blob/master/Homeworks3/10-monitorin
 https://github.com/syatihoko/devops-netology/blob/master/Homeworks3/10-monitoring-03-grafana/prometheus.yml
 
 **\>Оповещение по почте:**   
-https://prnt.sc/zkwx1u   
+https://prnt.sc/zkwx1u       
+https://prnt.sc/zl9aop
 
