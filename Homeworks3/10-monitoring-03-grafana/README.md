@@ -87,7 +87,7 @@ https://prnt.sc/z8btfo
 
 
 
-**/>Настройки канала оповещения Email**    
+**\>Настройки канала оповещения Email**    
 
 https://prnt.sc/zkg0rk
 
@@ -115,7 +115,7 @@ ehlo_identity = kaa_conf2.avisoftica.ru
 
 
 
-**/>Для решения ДЗ - приведите скриншот вашей итоговой Dashboard.**
+**\>Для решения ДЗ - приведите скриншот вашей итоговой Dashboard.**
 https://prnt.sc/zko6lk
 
 
@@ -134,7 +134,7 @@ https://prnt.sc/zko6lk
 
 
 **Dashboard_Netology.json** :
-
+https://github.com/syatihoko/devops-netology/blob/master/Homeworks3/10-monitoring-03-grafana/Dashboard_Netology.json
 
 
 
@@ -160,8 +160,9 @@ https://prnt.sc/zko6lk
 >
 > В решении приведите скриншоты тестовых событий из каналов нотификаций.
 
+**prometheus.yml:**  
+https://github.com/syatihoko/devops-netology/blob/master/Homeworks3/10-monitoring-03-grafana/prometheus.yml
 
-
-**/>Оповещение по почте:**   
+**\>Оповещение по почте:**   
 https://prnt.sc/zkwx1u   
 
