@@ -1,0 +1,2 @@
+export PATH=$PATH:/home/kaa/docker/0902CICD/apache-maven-3.6.3/bin
+mvn package
