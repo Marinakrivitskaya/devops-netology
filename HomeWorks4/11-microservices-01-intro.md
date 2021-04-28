@@ -31,16 +31,17 @@
 
 > Хранение исходного кода, непрерывная интеграция и непрерывная поставка. 
 
-1) Обе функции выполняет GitLab (есть свой CI\CD).
-Система имеет облачная.
-GitLab Container Registry - имеет собственный реестр образов Docker.
-Есть пайплайны, поддерживает параллельный запуск тестов\сборок.    
+1) Обе функции выполняет GitLab (есть свой CI\CD).   
+Система облачная.     
+GitLab Container Registry - имеет собственный реестр образов Docker.     
+Есть пайплайны\кастомовые шаги, поддерживает параллельный запуск тестов\сборок.       
 
-2) https://habr.com/ru/post/476368/
-GitHub Actions, мало знакомый мне инструмент
-3)https://blog.jetbrains.com/ru/teamcity/2020/11/teamcity-2020-2-integration-with-bitbucket-cloud-python-and-jetbrains-space-agentless-build-steps-new-administration-features-and-more/
-TeamCity Cloud + Bitbucket Cloud (но так же может подойти в связке с GitHub\GitLab)
-Вместо TeamCity, наверное подойдет также облачная версия Jenkins X.   
+2) https://habr.com/ru/post/476368/    
+GitHub Actions, мало знакомый мне инструмент, не уверен в выполнении всех требований.
+3)https://blog.jetbrains.com/ru/teamcity/2020/11/teamcity-2020-2-integration-with-bitbucket-cloud-python-and-jetbrains-space-agentless-build-steps-new-administration-features-and-more/     
+Как вариант могут подойти такие связки:
+TeamCity Cloud + Bitbucket Cloud (но также можно в связке с GitHub\GitLab).
+Вместо TeamCity, наверное, подойдет также облачная версия Jenkins X (что-то новое и неизвестное пока для меня).      
 
 
 
@@ -60,10 +61,11 @@ TeamCity Cloud + Bitbucket Cloud (но так же может подойти в 
 >
 > Обоснуйте свой выбор.
 
-Как самое популярное данный момент решение - ELK
+Как самое популярное данный момент решение - ELK.
 Возможность cбора из stdout. 
 Фильтрация по ElasticSearch, имеет свой web-интерфейс.
-Хорошо масштабируется. По требованиям гарантии доставки настроить доставку через TCP
+Хорошо масштабируется по ElasticSearch.
+По требованиям гарантии доставки настроить доставку нужно будет через TCP.    
 
 
 
