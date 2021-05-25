@@ -79,5 +79,5 @@
   | Переместить двоичный файл в директорию из переменной окружения PATH | **sudo mv ./kubectl /usr/local/bin/kubectl**          |
   | Смотрим  версию:                                             | **kubectl version --client**                                 |
   | Для kubectl port-forward ставим socat                        | **yum install socat**                                        |
-  | Посмотреть информацию о поде:                                | **kubectl get pods
-hello-node-7567d9fdc9-lfhkq   1/1     Running   0          147m**                                        |  
+  | Посмотреть информацию о поде                                 | **kubectl get pods**  имя : hello-node-7567d9fdc9-lfhkq      |  
+  | Делаем проброс до кластера через  kubectl port-forward       | **kubectl port-forward hello-node-7567d9fdc9-lfhkq 8080:8080**  |  
