@@ -76,7 +76,8 @@
   | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Загрузить последнюю версию                                   | curl -LO https://storage.googleapis.com/kubernetes-release/release/\`curl -s    https://storage.googleapis.com/kubernetes-release/release/stable.txt\`/bin/linux/amd64/kubectl |
   | Делаем исполняемой                                           | **chmod +x ./kubectl**                                       |
-  | Переместить двоичный файл в директорию из переменной окружения PATH | **sudo mv ./kubectl /usr/local/bin/kubectl**                 |
+  | Переместить двоичный файл в директорию из переменной окружения PATH | **sudo mv ./kubectl /usr/local/bin/kubectl**          |
   | Смотрим  версию:                                             | **kubectl version --client**                                 |
-
-  
+  | Для kubectl port-forward ставим socat                        | **yum install socat**                                        |
+  | Посмотреть информацию о поде:                                | **kubectl get pods
+hello-node-7567d9fdc9-lfhkq   1/1     Running   0          147m**                                        |  
