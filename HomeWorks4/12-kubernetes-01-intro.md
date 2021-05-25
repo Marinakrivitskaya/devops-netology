@@ -54,7 +54,7 @@
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **Установить аддоны ingress и dashboard**                    | **minikube addons list<br/>minikube addons enable ingress<br/>minikube addons enable dashboard** |
 | **создание деплоймента для управления подом c контейнером "Hello World"** | **kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4** |
-| **Запустить port-forward до кластера**                       | **kubectl expose deployment hello-node --type=LoadBalancer --port=8080** |
+| **Сделать Pod доступным для публичной сети**                       | **kubectl expose deployment hello-node --type=LoadBalancer --port=8080** |
 | **Посмотреть  созданный сервис**                             | **kubectl get services**<br/>*hello-node   LoadBalancer   10.107.241.53   <pending>     8080:31376/TCP   72s<br/>kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          3h31m* |
 | **Сделать сервис доступным (через LoadBalancer) при обращении с помощью команды** | **minikube service hello-node** <br/>*http://192.168.80.98:31376* |
 
