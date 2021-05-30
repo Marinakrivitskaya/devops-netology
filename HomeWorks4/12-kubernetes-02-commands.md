@@ -100,7 +100,7 @@
 
 
 ```
-"Увеличиваем в deployment кол-во pods до 2
+"Увеличиваем в deployment кол-во pods до 5
 #kubectl scale deployments/hello-node --replicas=5"
 
 #kubectl describe pod hello-node-7567d9fdc9-p22pc
