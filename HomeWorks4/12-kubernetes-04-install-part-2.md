@@ -81,7 +81,7 @@ ansible-playbook -u vagrant -i kubespray/inventory/inventory.ini -b --diff kubes
 
 
 
-![](I:\!!!DevOps_Нетология\4_Сетевая безопасность в Kubernetes\12.4. Развертывание кластера на собственных серверах (лекция 2)\1.jpg)
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/12.4_Kubespray.jpg)
 
 
 
