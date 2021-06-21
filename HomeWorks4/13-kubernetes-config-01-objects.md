@@ -185,7 +185,7 @@ status: {}
 
 ```
 
-**бекенд-сервис  **  #kubectl apply -f service_backend.yml
+**бекенд-сервис  ** 
 
 ```
 ---
