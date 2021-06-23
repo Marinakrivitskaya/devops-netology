@@ -13,9 +13,12 @@
 
 из Docker-файлов - фронтенд, бекенд-а сделал свои images.
 
-Получившийся Deployment:
+**Получившийся Deployment:**   
+
+**#kubectl apply -f deployment_front_back.yml**
 
 ```
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +30,6 @@ spec:
   selector:
     matchLabels:
       netology.service: frontend-backend
-  strategy: {}
   template:
     metadata:
       labels:
@@ -40,18 +42,18 @@ spec:
             - containerPort: 80
           resources: {}
         - image: kaaa/13_1_backend:latest
-          name: backend  
+          name: backend
           env:
             - name: DATABASE_URL
               value: postgres://postgres:postgres@db:5432/news
           ports:
             - containerPort: 9000
-          resources: {}
       restartPolicy: Always
-
 ```
 
-Получившийся StatefulSet для БД:
+**Получившийся StatefulSet для БД:**   
+
+**#kubectl apply -f StatefulSet_db.yml**
 
 ```
 ---
@@ -82,7 +84,28 @@ spec:
               value: postgres
 ```
 
+**Сервис для БД:**   
 
+**#kubectl apply -f service_bd.yml**
+
+```
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    netology.service: db
+  name: db
+spec:
+  ports:
+    - name: "postgresql"
+      port: 5432
+      targetPort: 5432
+  selector:
+    netology.service: db
+  type: ClusterIP
+```
 
 > ## Задание 2: подготовить конфиг для продуктива
 > Следующим шагом будет запуск приложения в production окружении. Требования сложнее:
@@ -94,7 +117,8 @@ spec:
 
 
 
-**база**
+**База данных**   
+**#kubectl apply -f StatefulSet_db.yml**
 
 ```
 ---
@@ -123,10 +147,11 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
-
 ```
 
-**база_сервис**
+**Сервис для БД**   
+
+**#kubectl apply -f service_bd.yml**
 
 ```
 ---
@@ -134,13 +159,12 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-  creationTimestamp: null
   labels:
     netology.service: db
   name: db
 spec:
   ports:
-    - name: "8080"
+    - name: "postgresql"
       port: 5432
       targetPort: 5432
   selector:
@@ -148,14 +172,14 @@ spec:
   type: ClusterIP
 ```
 
-**бекенд**
+**Бекенд**
 
+**#kubectl apply -f deployment_back.yml**
 ```
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     netology.service: backend
   name: backend
@@ -164,29 +188,24 @@ spec:
   selector:
     matchLabels:
       netology.service: backend
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         netology.service: backend
     spec:
       containers:
         - image: kaaa/13_1_backend:latest
-          name: backend..
+          name: backend
           env:
             - name: DATABASE_URL
-              value: postgres://postgres:postgres@db:5432/news   #db = 10.233.7.17
+              value: postgres://postgres:postgres@db:5432/news
           ports:
             - containerPort: 9000
-          resources: {}
       restartPolicy: Always
-status: {}
-
 ```
 
-**бекенд-сервис  **  #kubectl apply -f service_backend.yml
-
+**Сервис для Бекенда**    
+**#kubectl apply -f service_backend.yml**
 ```
 ---
 apiVersion: v1
@@ -197,24 +216,22 @@ metadata:
   name: backend
 spec:
   ports:
-    - name: "9000"
+    - name: "backend-port"
       port: 9000
       targetPort: 9000
   selector:
     netology.service: backend
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  type: ClusterIP
 ```
 
-**фронтенд**
+**Фронтенд**   
+**#kubectl apply -f deployment_front.yml**
 
 ```
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     netology.service: frontend
   name: frontend
@@ -223,10 +240,8 @@ spec:
   selector:
     matchLabels:
       netology.service: frontend
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         netology.service: frontend
     spec:
@@ -237,47 +252,46 @@ spec:
             - containerPort: 80
           env:
             - name: BASE_URL
-              value: http://backend:32669  # backend:32669 = 10.233.36.252:32669 => 9000     
-          resources: {}
+              value: http://backend:9000
       restartPolicy: Always
-status: {}
 ```
 
-**фронтенд-сервис**
-
+**Сервис для Фронтенд**   
+**#kubectl apply -f service_frontend.yml**
 ```
 ---
 apiVersion: v1
 kind: Service
 metadata:
   annotations:
-  creationTimestamp: null
   labels:
     netology.service: frontend
   name: frontend
 spec:
   ports:
-    - name: "8080"
-#      nodePort:   #The range of valid ports is 30000-32767
+    - name: "frontend-port"
       port: 8000
       targetPort: 80
   selector:
     netology.service: frontend
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  type: ClusterIP
 ```
 
-**$ kubectl get services**
+**$ kubectl get services**   
 
-```
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-backend      LoadBalancer   10.233.36.252   <pending>     9000:32669/TCP   12m
-db           ClusterIP      10.233.7.17     <none>        5432/TCP         8s
-frontend     LoadBalancer   10.233.3.213    <pending>     8000:31320/TCP   13m
-kubernetes   ClusterIP      10.233.0.1      <none>        443/TCP          6d23h
-```
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/services.jpg)  
 
+**$kubectl get pods**      
+
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/pods.jpg)
+
+**$ kubectl get statefulset**   
+
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/statefulset.jpg)
+
+**$ kubectl get deploy**   
+
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/deploy.jpg)
 
 
 > ## Задание 3 (*): добавить endpoint на внешний ресурс api
@@ -285,44 +299,17 @@ kubernetes   ClusterIP      10.233.0.1      <none>        443/TCP          6d23h
 > * добавлен endpoint до внешнего api (например, геокодер).
 >
 
-Попробовал создать,  но наверное не в ту сторону пошел, ExternalName имеет проблемы по работе через HTTPS
 
-```
----
-kind: Service
+~~kind: Service
 apiVersion: v1
 metadata:
   name: external-svc-gis
 spec:
   type: ExternalName
   externalName: catalog.api.2gis.com
-```
+selector: {}~~
 
-Если бы протокол был не https, то наверное можно было, что то вроде этого сделать:
 
-```
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: external-svc
-spec:
-  ports:
-    - name: web
-      protocol: TCP
-      port: 80
-      targetPort: 80"
----
-kind: Endpoints
-apiVersion: v1
-metadata:
-  name: external-svc
-subsets: 
-  - addresses:
-        - ip: 139.59.205.180
-    ports:
-      - port: 80
-        name: web"
 
-```
+
 
