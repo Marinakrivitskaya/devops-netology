@@ -278,15 +278,19 @@ spec:
 ```
 
 **$ kubectl get services**
-![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/services.jpg)
+
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/services.jpg)  
 
 **$kubectl get pods**   
+
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/pods.jpg)
 
 **$ kubectl get statefulset**
+
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/statefulset.jpg)
 
 **$ kubectl get deploy**
+
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/deploy.jpg)
 
 
