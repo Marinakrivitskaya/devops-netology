@@ -77,13 +77,13 @@ spec:
 
 **kubectl exec -it nfs-deployment-85c6f67487-f2h6s  -c test-0 bash**
 
-cd /static/
-echo test > static_file
+**cd /static/   
+echo test > static_file  **
 
 **kubectl exec -it nfs-deployment-85c6f67487-f2h6s  -c test-1 bash**
 
-cd /static/
-echo static_file
+**cd /static/    
+echo static_file   **
 
 
 
