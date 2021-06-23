@@ -118,18 +118,22 @@ spec:
               claimName: test-dynamic-volume-claim
 ```
 
-Смотрим, что директория общая: 
+Смотрим, что директория общая, проверяем, что записанное в одном Pod-е видно в другом: 
 
 **kubectl exec -it test-pd-pv -c test-0 bash**
 
+```
 cd /static/
 echo test > static_file
+```
+
 
 **kubectl exec -it test-pd-pv -c test-1 bash**
 
+```
 cd /static/
 echo static_file
-
+```
 
 
 
