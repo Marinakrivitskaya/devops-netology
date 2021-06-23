@@ -299,8 +299,6 @@ spec:
 > * добавлен endpoint до внешнего api (например, геокодер).
 >
 
-Попробовал создать,  но наверное не в ту сторону пошел, ExternalName имеет проблемы по работе через HTTPS
-
 ```
 ---
 kind: Service
@@ -313,31 +311,5 @@ spec:
 selector: {}
 ```
 
-Если бы протокол был не https, то наверное можно было, что то вроде этого сделать:
 
-```
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: external-svc
-spec:
-  ports:
-    - name: web
-      protocol: TCP
-      port: 80
-      targetPort: 80"
----
-kind: Endpoints
-apiVersion: v1
-metadata:
-  name: external-svc
-subsets: 
-  - addresses:
-        - ip: 139.59.205.180
-    ports:
-      - port: 80
-        name: web"
-
-```
 
