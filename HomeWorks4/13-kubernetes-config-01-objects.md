@@ -15,7 +15,7 @@
 
 Получившийся Deployment:
 
-**#kybectl apply -f deployment_front_back.yml**
+**#kubectl apply -f deployment_front_back.yml**
 
 ```
 ---
@@ -53,7 +53,7 @@ spec:
 
 Получившийся StatefulSet для БД:
 
-**#kybectl apply -f StatefulSet_db.yml**
+**#kubectl apply -f StatefulSet_db.yml**
 
 ```
 ---
@@ -84,10 +84,9 @@ spec:
               value: postgres
 ```
 
+**Сервис для БД:**
 
-Сервис для БД:
-
-**#kybectl apply -f service_bd.yml**
+**#kubectl apply -f service_bd.yml**
 
 ```
 ---
@@ -106,9 +105,6 @@ spec:
   selector:
     netology.service: db
   type: ClusterIP
-
-
-
 ```
 
 > ## Задание 2: подготовить конфиг для продуктива
@@ -121,7 +117,8 @@ spec:
 
 
 
-**база**
+**База данных**
+**#kubectl apply -f StatefulSet_db.yml**
 
 ```
 ---
@@ -150,10 +147,11 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
-
 ```
 
-**база_сервис**
+**Сервис для БД**
+
+**#kubectl apply -f service_bd.yml**
 
 ```
 ---
@@ -161,13 +159,12 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-  creationTimestamp: null
   labels:
     netology.service: db
   name: db
 spec:
   ports:
-    - name: "8080"
+    - name: "postgresql"
       port: 5432
       targetPort: 5432
   selector:
@@ -175,14 +172,14 @@ spec:
   type: ClusterIP
 ```
 
-**бекенд**
+**Бекенд**
 
+**#kubectl apply -f deployment_back.yml**
 ```
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     netology.service: backend
   name: backend
@@ -191,29 +188,24 @@ spec:
   selector:
     matchLabels:
       netology.service: backend
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         netology.service: backend
     spec:
       containers:
         - image: kaaa/13_1_backend:latest
-          name: backend..
+          name: backend
           env:
             - name: DATABASE_URL
-              value: postgres://postgres:postgres@db:5432/news   #db = 10.233.7.17
+              value: postgres://postgres:postgres@db:5432/news
           ports:
             - containerPort: 9000
-          resources: {}
       restartPolicy: Always
-status: {}
-
 ```
 
-**бекенд-сервис** 
-
+**Сервис для Бекенда** 
+**#kubectl apply -f service_backend.yml**
 ```
 ---
 apiVersion: v1
@@ -224,24 +216,22 @@ metadata:
   name: backend
 spec:
   ports:
-    - name: "9000"
+    - name: "backend-port"
       port: 9000
       targetPort: 9000
   selector:
     netology.service: backend
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  type: ClusterIP
 ```
 
-**фронтенд**
+**Фронтенд**
+**#kubectl apply -f deployment_front.yml**
 
 ```
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     netology.service: frontend
   name: frontend
@@ -250,10 +240,8 @@ spec:
   selector:
     matchLabels:
       netology.service: frontend
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         netology.service: frontend
     spec:
@@ -264,47 +252,51 @@ spec:
             - containerPort: 80
           env:
             - name: BASE_URL
-              value: http://backend:32669  # backend:32669 = 10.233.36.252:32669 => 9000     
-          resources: {}
+              value: http://backend:9000
       restartPolicy: Always
-status: {}
 ```
 
-**фронтенд-сервис**
-
+**Сервис для Фронтенд**
+**#kubectl apply -f service_frontend.yml**
 ```
 ---
 apiVersion: v1
 kind: Service
 metadata:
   annotations:
-  creationTimestamp: null
   labels:
     netology.service: frontend
   name: frontend
 spec:
   ports:
-    - name: "8080"
-#      nodePort:   #The range of valid ports is 30000-32767
+    - name: "frontend-port"
       port: 8000
       targetPort: 80
   selector:
     netology.service: frontend
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  type: ClusterIP
 ```
 
 **$ kubectl get services**
 
 ```
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-backend      LoadBalancer   10.233.36.252   <pending>     9000:32669/TCP   12m
-db           ClusterIP      10.233.7.17     <none>        5432/TCP         8s
-frontend     LoadBalancer   10.233.3.213    <pending>     8000:31320/TCP   13m
-kubernetes   ClusterIP      10.233.0.1      <none>        443/TCP          6d23h
+NAME           TYPE           CLUSTER-IP      EXTERNAL-IP            PORT(S)    AGE
+backend        ClusterIP      10.233.15.79    <none>                 9000/TCP   81s
+db             ClusterIP      10.233.0.85     <none>                 5432/TCP   2m18s
+frontend       ClusterIP      10.233.8.226    <none>                 8000/TCP   14s
+kubernetes     ClusterIP      10.233.0.1      <none>                 443/TCP    8d
 ```
 
+
+**$kubectl get pods**   
+
+```
+NAME                                  READY   STATUS    RESTARTS   AGE
+backend-8dcf9b8c6-d957v               1/1     Running   0          4m11s
+db-0                                  1/1     Running   0          17m
+frontend-64dbfd6b94-cgr65             1/1     Running   0          2m55s
+
+```
 
 
 > ## Задание 3 (*): добавить endpoint на внешний ресурс api
