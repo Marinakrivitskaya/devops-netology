@@ -13,7 +13,7 @@
 
 из Docker-файлов - фронтенд, бекенд-а сделал свои images.
 
-**Получившийся Deployment:**
+**Получившийся Deployment:**   
 
 **#kubectl apply -f deployment_front_back.yml**
 
@@ -51,7 +51,7 @@ spec:
       restartPolicy: Always
 ```
 
-**Получившийся StatefulSet для БД:**
+**Получившийся StatefulSet для БД:**   
 
 **#kubectl apply -f StatefulSet_db.yml**
 
@@ -84,7 +84,7 @@ spec:
               value: postgres
 ```
 
-**Сервис для БД:**
+**Сервис для БД:**   
 
 **#kubectl apply -f service_bd.yml**
 
@@ -117,7 +117,7 @@ spec:
 
 
 
-**База данных**
+**База данных**   
 **#kubectl apply -f StatefulSet_db.yml**
 
 ```
@@ -149,7 +149,7 @@ spec:
               value: postgres
 ```
 
-**Сервис для БД**
+**Сервис для БД**   
 
 **#kubectl apply -f service_bd.yml**
 
@@ -204,7 +204,7 @@ spec:
       restartPolicy: Always
 ```
 
-**Сервис для Бекенда** 
+**Сервис для Бекенда**    
 **#kubectl apply -f service_backend.yml**
 ```
 ---
@@ -224,7 +224,7 @@ spec:
   type: ClusterIP
 ```
 
-**Фронтенд**
+**Фронтенд**   
 **#kubectl apply -f deployment_front.yml**
 
 ```
@@ -256,7 +256,7 @@ spec:
       restartPolicy: Always
 ```
 
-**Сервис для Фронтенд**
+**Сервис для Фронтенд**   
 **#kubectl apply -f service_frontend.yml**
 ```
 ---
@@ -277,19 +277,19 @@ spec:
   type: ClusterIP
 ```
 
-**$ kubectl get services**
+**$ kubectl get services**   
 
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/services.jpg)  
 
-**$kubectl get pods**   
+**$kubectl get pods**      
 
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/pods.jpg)
 
-**$ kubectl get statefulset**
+**$ kubectl get statefulset**   
 
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/statefulset.jpg)
 
-**$ kubectl get deploy**
+**$ kubectl get deploy**   
 
 ![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/deploy.jpg)
 
