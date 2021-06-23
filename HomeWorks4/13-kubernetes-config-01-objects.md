@@ -13,7 +13,7 @@
 
 из Docker-файлов - фронтенд, бекенд-а сделал свои images.
 
-Получившийся Deployment:
+**Получившийся Deployment:**
 
 **#kubectl apply -f deployment_front_back.yml**
 
@@ -51,7 +51,7 @@ spec:
       restartPolicy: Always
 ```
 
-Получившийся StatefulSet для БД:
+**Получившийся StatefulSet для БД:**
 
 **#kubectl apply -f StatefulSet_db.yml**
 
