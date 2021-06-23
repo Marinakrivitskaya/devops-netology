@@ -278,25 +278,16 @@ spec:
 ```
 
 **$ kubectl get services**
-
-```
-NAME           TYPE           CLUSTER-IP      EXTERNAL-IP            PORT(S)    AGE
-backend        ClusterIP      10.233.15.79    <none>                 9000/TCP   81s
-db             ClusterIP      10.233.0.85     <none>                 5432/TCP   2m18s
-frontend       ClusterIP      10.233.8.226    <none>                 8000/TCP   14s
-kubernetes     ClusterIP      10.233.0.1      <none>                 443/TCP    8d
-```
-
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/services.jpg)
 
 **$kubectl get pods**   
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/pods.jpg)
 
-```
-NAME                                  READY   STATUS    RESTARTS   AGE
-backend-8dcf9b8c6-d957v               1/1     Running   0          4m11s
-db-0                                  1/1     Running   0          17m
-frontend-64dbfd6b94-cgr65             1/1     Running   0          2m55s
+**$ kubectl get statefulset**
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/statefulset.jpg)
 
-```
+**$ kubectl get deploy**
+![](https://github.com/syatihoko/devops-netology/blob/master/HomeWorks4/deploy.jpg)
 
 
 > ## Задание 3 (*): добавить endpoint на внешний ресурс api
