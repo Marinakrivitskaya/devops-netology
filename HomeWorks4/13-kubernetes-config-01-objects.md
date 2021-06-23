@@ -15,7 +15,10 @@
 
 Получившийся Deployment:
 
+**#kybectl apply -f deployment_front_back.yml**
+
 ```
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +30,6 @@ spec:
   selector:
     matchLabels:
       netology.service: frontend-backend
-  strategy: {}
   template:
     metadata:
       labels:
@@ -40,18 +42,18 @@ spec:
             - containerPort: 80
           resources: {}
         - image: kaaa/13_1_backend:latest
-          name: backend  
+          name: backend
           env:
             - name: DATABASE_URL
               value: postgres://postgres:postgres@db:5432/news
           ports:
             - containerPort: 9000
-          resources: {}
       restartPolicy: Always
-
 ```
 
 Получившийся StatefulSet для БД:
+
+**#kybectl apply -f StatefulSet_db.yml**
 
 ```
 ---
@@ -83,6 +85,31 @@ spec:
 ```
 
 
+Сервис для БД:
+
+**#kybectl apply -f service_bd.yml**
+
+```
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    netology.service: db
+  name: db
+spec:
+  ports:
+    - name: "postgresql"
+      port: 5432
+      targetPort: 5432
+  selector:
+    netology.service: db
+  type: ClusterIP
+
+
+
+```
 
 > ## Задание 2: подготовить конфиг для продуктива
 > Следующим шагом будет запуск приложения в production окружении. Требования сложнее:
