@@ -315,6 +315,7 @@ metadata:
 spec:
   type: ExternalName
   externalName: catalog.api.2gis.com
+selector: {}
 ```
 
 Если бы протокол был не https, то наверное можно было, что то вроде этого сделать:
