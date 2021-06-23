@@ -299,17 +299,14 @@ spec:
 > * добавлен endpoint до внешнего api (например, геокодер).
 >
 
-~~
----
-kind: Service
+~~kind: Service
 apiVersion: v1
 metadata:
   name: external-svc-gis
 spec:
   type: ExternalName
   externalName: catalog.api.2gis.com
-selector: {}
-~~
+selector: {} ~~
 
 
 
