@@ -14,7 +14,6 @@
 *{"detail":"Not Found"}*
 
 
-
 **Бекен port-forward:**
 
 **[vagrant@node1 ~]$ kubectl port-forward pod/backend-8dcf9b8c6-d957v 9001:9000 &**
@@ -24,9 +23,10 @@
 *Handling connection for 9000*   #появилось при подключении.
 
 
-
 **[vagrant@node1 ~]$ curl localhost:9000**
 *{"detail":"Not Found"}*
+
+
 
 
 
@@ -51,8 +51,6 @@
     <script src="/build/main.js"></script>
 </body>
 ```
-
-
 
 **Фронтенд port-forward:**
 
@@ -86,6 +84,8 @@
 
 
 
+
+
 **БД Exec:**
 
 **[kaa@kaacentos .kube]$ kubectl exec -it db-0 -- psql -U postgres**
@@ -93,7 +93,6 @@
 *Type "help" for help.*
 
 *postgres=#*
-
 
 
 **БД port-forward:**
