@@ -132,7 +132,7 @@ psql -c 'SELECT version()' -U postgres -h db news
 **kubectl describe pods frontend | grep "Node:  "**   
 *Node:         node5/192.168.80.225*   
 
-
+================================================
 
 Масштабируем до 3 реплик   
 
@@ -154,9 +154,9 @@ Node:         node5/192.168.80.225
 Node:         node3/192.168.80.223   
 
 
+===============================================
 
-
-##Масштабируем до 1 реплик (обратно)  
+Масштабируем до 1 реплик (обратно)  
 **kubectl scale --replicas=1 deployment/backend**   
 
 **kubectl describe pods backend | grep "Node: "**   
