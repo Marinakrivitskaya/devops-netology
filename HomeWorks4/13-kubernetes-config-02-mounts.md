@@ -77,14 +77,17 @@ spec:
 
 **kubectl exec -it nfs-deployment-85c6f67487-f2h6s  -c test-0 bash**
 
-cd /static/
-echo test > static_file
+```
+cd /static/   
+echo test > static_file 
+```
 
 **kubectl exec -it nfs-deployment-85c6f67487-f2h6s  -c test-1 bash**
 
-cd /static/
-echo static_file
-
+```
+cd /static/    
+echo static_file   
+```
 
 
 Или Pod  c nfs:
@@ -115,18 +118,22 @@ spec:
               claimName: test-dynamic-volume-claim
 ```
 
-Смотрим, что директория общая: 
+Смотрим, что директория общая, проверяем, что записанное в одном Pod-е видно в другом: 
 
 **kubectl exec -it test-pd-pv -c test-0 bash**
 
+```
 cd /static/
 echo test > static_file
+```
+
 
 **kubectl exec -it test-pd-pv -c test-1 bash**
 
+```
 cd /static/
 echo static_file
-
+```
 
 
 
@@ -207,4 +214,4 @@ spec:
 
 
 
-Также по идее нужно было бы переключить PVC на  *ReadWriteMany*, но наверное особенность NFS в том, что и при режиме *ReadWriteOnce* могут писать\читать несколько подов одновременно. 
+Также по идее нужно было бы переключить PVC на  *ReadWriteMany*, но наверное особенность NFS в том, что и при режиме *ReadWriteOnce* могут писать\читать несколько подов одновременно. Проверил это до включения на втором Deployment: :"readOnly: true"
