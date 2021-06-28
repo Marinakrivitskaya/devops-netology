@@ -156,7 +156,7 @@ Node:         node3/192.168.80.223
 
 
 
-
+##Масштабируем до 1 реплик (обратно)  
 **kubectl scale --replicas=1 deployment/backend**   
 
 **kubectl describe pods backend | grep "Node: "**   
