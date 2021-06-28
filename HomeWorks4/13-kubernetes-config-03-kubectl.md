@@ -7,13 +7,13 @@
 >
 
 
-
+================================================
 **Бекенд exec:**   
 
 **$ kubectl exec -it  backend-8dcf9b8c6-d957v -- curl localhost:9000;**   
 *{"detail":"Not Found"}*      
 
-
+================================================
 **Бекен port-forward:**      
 
 **[vagrant@node1 ~]$ kubectl port-forward pod/backend-8dcf9b8c6-d957v 9001:9000 &**    
@@ -28,8 +28,8 @@
 
 
 
-
-
+================================================
+================================================
 **Фронтенд exec:**   
 
 **[kaa@kaacentos .kube]$ kubectl exec -it frontend-64dbfd6b94-cgr65 -- curl localhost:80**   
@@ -51,7 +51,7 @@
     <script src="/build/main.js"></script>
 </body>
 ```
-
+================================================
 **Фронтенд port-forward:**   
 
 **[kaa@kaacentos .kube]$ kubectl port-forward pod/frontend-64dbfd6b94-cgr65 :80 &**   
@@ -84,8 +84,8 @@
 
 
 
-
-
+================================================
+================================================
 **БД Exec:**   
 
 **[kaa@kaacentos .kube]$ kubectl exec -it db-0 -- psql -U postgres**   
@@ -94,7 +94,7 @@
 
 *postgres=#*   
 
-
+================================================
 **БД port-forward:**   
 
 **[kaa@kaacentos ~]$ kubectl port-forward pod/db-0 :5432 &**      
