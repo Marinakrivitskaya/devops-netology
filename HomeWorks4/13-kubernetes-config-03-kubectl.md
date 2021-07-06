@@ -7,13 +7,14 @@
 >
 
 
+==============================================   
 
 **Бекенд exec:**   
 
 **$ kubectl exec -it  backend-8dcf9b8c6-d957v -- curl localhost:9000;**   
 *{"detail":"Not Found"}*      
 
-
+==============================================   
 **Бекен port-forward:**      
 
 **[vagrant@node1 ~]$ kubectl port-forward pod/backend-8dcf9b8c6-d957v 9001:9000 &**    
@@ -28,8 +29,7 @@
 
 
 
-
-
+================================================   
 **Фронтенд exec:**   
 
 **[kaa@kaacentos .kube]$ kubectl exec -it frontend-64dbfd6b94-cgr65 -- curl localhost:80**   
@@ -51,7 +51,7 @@
     <script src="/build/main.js"></script>
 </body>
 ```
-
+================================================   
 **Фронтенд port-forward:**   
 
 **[kaa@kaacentos .kube]$ kubectl port-forward pod/frontend-64dbfd6b94-cgr65 :80 &**   
@@ -85,7 +85,7 @@
 
 
 
-
+================================================   
 **БД Exec:**   
 
 **[kaa@kaacentos .kube]$ kubectl exec -it db-0 -- psql -U postgres**   
@@ -94,7 +94,7 @@
 
 *postgres=#*   
 
-
+================================================   
 **БД port-forward:**   
 
 **[kaa@kaacentos ~]$ kubectl port-forward pod/db-0 :5432 &**      
@@ -132,7 +132,7 @@ psql -c 'SELECT version()' -U postgres -h db news
 **kubectl describe pods frontend | grep "Node:  "**   
 *Node:         node5/192.168.80.225*   
 
-
+================================================   
 
 Масштабируем до 3 реплик   
 
@@ -154,9 +154,9 @@ Node:         node5/192.168.80.225
 Node:         node3/192.168.80.223   
 
 
+===============================================   
 
-
-##Масштабируем до 1 реплик (обратно)  
+Масштабируем до 1 реплик (обратно)  
 **kubectl scale --replicas=1 deployment/backend**   
 
 **kubectl describe pods backend | grep "Node: "**   
