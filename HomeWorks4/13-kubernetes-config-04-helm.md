@@ -59,6 +59,9 @@ namespace/app2 created
 Error: rendered manifests contain a resource that already exists. Unable to continue with install: Service "backend" in namespace "app1" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "kaa-chart1v2": current value is "kaa-chart1v1"
 ```
 
+Комментарии преп: нужно было изменить имя релиза через флаг --name.
+
+
 Вторая версия в дефолтном
 
 ```
