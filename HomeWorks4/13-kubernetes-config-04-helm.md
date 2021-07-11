@@ -57,9 +57,11 @@ namespace/app2 created
 ```
 # helm install kaa-chart1v2 ./kaa-chart1-0.1.1.tgz --namespace app1
 Error: rendered manifests contain a resource that already exists. Unable to continue with install: Service "backend" in namespace "app1" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "kaa-chart1v2": current value is "kaa-chart1v1"
+Комментарии преподавателя: нужно было изменить имя релиза через флаг --name.
 ```
 
-Комментарии преп: нужно было изменить имя релиза через флаг --name.
+
+
 
 
 Вторая версия в дефолтном
@@ -119,7 +121,10 @@ root@node1 20210705-helm-chart1]# helm uninstall kaa-chart1v3 -n app2
 release "kaa-chart1v3" uninstalled
 ```
 
-Единственное с чем столкнулся, это проблема порядка запуска подов, БД позже стартует, чем backend (для проверки работы deploy выставил в 0 и опять в 1
+Единственное с чем столкнулся, это проблема порядка запуска подов, БД позже стартует, чем backend (для проверки работы deploy выставил в 0 и опять в 1.
+Комментарий преподавателя: Для того, чтобы приложение не стартовало раньше базы можно добавить entrypoint скрипт, который будет проверять доступность базы и только после этого стартовать приложение.
+
+
 
 Лог бекенда, после перезапуска
 
