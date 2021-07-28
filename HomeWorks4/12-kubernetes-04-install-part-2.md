@@ -58,7 +58,7 @@ https://github.com/kubernetes-sigs/kubespray/blob/master/docs/containerd.md
 container_manager: containerd
 ```
 
-~kubespray/inventory/group_vars/all/etcd.yml
+~kubespray/inventory/group_vars/etcd.yml
 
 ```
 etcd_deployment_type: host
